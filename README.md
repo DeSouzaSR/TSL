@@ -1,14 +1,17 @@
 # TSL
-Este programa aplica a Teoria Secular Linear para sistemas planetários. 
-Como trata-se de uma aproximação, consideramos pequenas inclinações e 
-baixas excentricidades. O arquivo de entrada dos planetas é uma planilha
-xls com os seguintes dados:
+Este programa aplica a Teoria Secular Linear para sistemas planetários.
+Como trata-se de uma aproximação, consideramos pequenas inclinações e
+baixas excentricidades.
 
-* m - massa (normalizado para massa solar igual a unidade)
-* a - semieixo maior [AU]
-* e - excentricidade
-* inc - inclinação [degrees]
-* varpi - Longitude do periastro [degrees]
-* capom - Variação do nodo ascendente [degrees]
+São usados dois exemplos para verificar as saídas do programa. Para cada
+exemplo, há um notebook diferente. São apresentados dois exemplos:
+Carpino e Murray. O arquivo de entrada dos planetas é um arquivo
+de texto
 
-Cada linha é um planeta.
+Para reproduzir o exemplo apresentado por Carpino, usar o arquivo
+*planetas-Carpino.txt*.
+
+Para reproduzir o exemplo apresentado por Murray, usar o arquivo
+*planetas-Murray.txt*.
+
+Cada linha do arquivo é um planeta.
