@@ -77,7 +77,6 @@ def titulo(str_titulo):
     print(str_titulo)
     print(len(str_titulo) * '-')
     
-    
 # %% Função main - programa principal
 def main():
     # %% Apresentação do programa
@@ -236,7 +235,7 @@ def main():
                 A_cal[i, j] = ((a[i] * np.sqrt(m[i] * n[i]))                            / (a[j] * np.sqrt(m[j] * n[j]))) * A[i, j]
                 
     # Obtendo os autovetores e autovalres de A
-    A_eigen = np.linalg.eig(A_cal)
+    A_eigen = np.linalg.eig(A)
     
     
     # %% Resultados da matriz A
@@ -248,9 +247,9 @@ def main():
     print(A)
     print('\n Matriz A simétrica, conforme Carpino, página 26')
     print(A_cal)
-    print('\n Autovalores de A simétrica')
+    print('\n Autovalores de A')
     print(A_eigen[0])
-    print('\n Autovetores de A simétrica')
+    print('\n Autovetores de A')
     print(A_eigen[1])
     
     # %% Matriz B
@@ -259,7 +258,7 @@ def main():
         for j in range(0,len_a):
             if j != i:
                 B[i, j] =  parte1(i, G, n, a) * parte2(i, j, m, al, a) * \
-                parte3(2, i, j, coeff_laplace, a)
+                parte3(1, i, j, coeff_laplace, a)
             else:
                 B[i, i] = -A[i, i]
     
@@ -279,7 +278,7 @@ def main():
                 B_cal[i, j] = ((a[i] * np.sqrt(m[i] * n[i]))                            / (a[j] * np.sqrt(m[j] * n[j]))) * B[i, j]
     
     # Obtendo os autovetores e autovalres de B
-    B_eigen = np.linalg.eig(B_cal)
+    B_eigen = np.linalg.eig(B)
     
     # %% Resultados da matriz B
     # A matriz simétrica, na página 26 do texto de Carpino.
@@ -289,9 +288,9 @@ def main():
     print(B) 
     print('\n Matriz B simétrica, conforme Carpino, página 26')
     print(B_cal)
-    print('\n Autovalores de B simétrica')
+    print('\n Autovalores de B')
     print(B_eigen[0])
-    print('\n Autovetores de B simétrica')
+    print('\n Autovetores de B')
     print(B_eigen[1])
     
     # %% Matrizes rescalonadas
