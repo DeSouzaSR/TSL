@@ -6,5 +6,12 @@ baixas excentricidades.
 Será usado o exemplo extraído de Caparpino, página 25, cujo arquivo pdf pode ser baixado [neste endereço](http://www.brera.mi.astro.it/~carpino/didattica/lagrange.pdf), para se verificar se o programa está sendo executado corretamente.
 
 ## Arquivos
-* [TSL-Carpino.ipynb](https://nbviewer.jupyter.org/github/DeSouzaSR/TSL/blob/master/TSL-Carpino.ipynb): Notebook com a implementação do programa em Python3. 
+* [TSL-Carpino.py](https://github.com/DeSouzaSR/TSL/blob/master/TSL-Carpino.py): Programa feito em Python3.
 * [planetas-Carpino.txt](https://github.com/DeSouzaSR/TSL/blob/master/planetas-Carpino.txt): Dados de entrada. Cada linha do arquivo é um planeta.
+* [Resultados-Carpino.txt](https://github.com/DeSouzaSR/TSL/blob/master/Resultados-Carpino.txt)Resultados da última execução do programa.
+
+## Pré-requisitos
+* Python 3.4.5
+* Pandas 0.16.2
+* Numpy 1.10.4
+* Scipy 0.17.0
