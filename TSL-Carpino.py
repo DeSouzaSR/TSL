@@ -204,26 +204,31 @@ if __name__ == '__main__':
     titulo('Coeficientes de Laplace para k = 2 (página 26)')
     print(M_laplace)
 
-    # %% Determinando a matriz A
+    # %% Determinando a matriz A e B
+    # Matriz A
     A = np.zeros((len_a, len_a))
     for i in range(0, len_a):
         for j in range(0,len_a):
              if j != i:
-                A[i, j] = -parte1(i, G, n, a) * parte2(i, j, m, a) * parte3(2, i, j, a)
+                A[i, j] = -parte1(i, G, n, a) * parte2(i, j, m, a) * \
+                    parte3(2, i, j, a)
              else:
                 parcial = 0
                 for l in range(0, len_a):
                     if l != i:
                         parcial = parcial + parte2(i, l, m, a) * \
-                        parte3(1, i, l, a)
-                A[i, j] = parte1(i, G, n, a) * parcial
+                            parte3(1, i, l, a)
+                A[i, i] = parte1(i, G, n, a) * parcial
 
-
-    # Convertendo a matriz A para unidades de arcsec / yr
-    A = A * (180/np.pi) * 365.25 * 3600
-
-    # Convertendo a matriz A para unidades de deg / yr
-    #A = A * (180/np.pi) * 365.25
+    # Matriz B
+    B = np.zeros((len_a, len_a))
+    for i in range(0, len_a):
+        for j in range(0,len_a):
+            if j != i:
+                B[i, j] =  parte1(i, G, n, a) * parte2(i, j, m, a) * \
+                    parte3(1, i, j, a)
+            else:
+                B[i, i] = -A[i, i]
 
     # Obtendo a matriz simétrica A
     A_cal = np.zeros((len_a,len_a))
@@ -235,16 +240,39 @@ if __name__ == '__main__':
                 A_cal[i, j] = \
                 ((a[i]*np.sqrt(m[i]*n[i]))/(a[j]*np.sqrt(m[j]*n[j])))*A[i,j]
 
+    # Obtendo a matriz simétrica B
+    B_cal = np.zeros((len_a,len_a))
+    for i in range(0,len_a):
+        for j in range(0,len_a):
+            if i == j:
+                B_cal[i, j] = -A[i,j]
+            else:
+                B_cal[i, j] =\
+                ((a[i]*np.sqrt(m[i]*n[i]))/(a[j]*np.sqrt(m[j]*n[j])))*B[i,j]
+
+    # Convertendo a matriz A para unidades de arcsec / yr
+    A = A * (180/np.pi) * 365.25 * 3600
+    # Convertendo a matriz A simétrica para unidades de arcsec / yr
+    A_cal = A_cal * (180/np.pi) * 365.25 * 3600   
+
+    # Convertendo a matriz B para unidades de arcsec / yr
+    B = B * (180/np.pi) * 365.25 * 3600
+    # Convertendo a matriz B simétrica para unidades de arcsec / yr
+    B_cal = B_cal * (180/np.pi) * 365.25 * 3600       
+                
     # Obtendo os autovetores e autovalres de A
     A_eigen = np.linalg.eig(A)
     A_eigen_sim = np.linalg.eig(A_cal)
 
-
+    # Obtendo os autovetores e autovalres de B
+    B_eigen = np.linalg.eig(B)
+    B_eigen_sim = np.linalg.eig(B_cal)
+    
     # %% Resultados da matriz A
     # A matriz simétrica, na página 26 do texto de Carpino.
 
     titulo('Resultado da matriz A em arcsec/yr')
-
+    
     print('Matriz A')
     print(A)
     print('\n Autovalores de A')
@@ -258,40 +286,11 @@ if __name__ == '__main__':
     print('\n Autovetores de A simetrica')
     print(A_eigen_sim[1])
 
-    # %% Matriz B
-    B = np.zeros((len_a, len_a))
-    for i in range(0, len_a):
-        for j in range(0,len_a):
-            if j != i:
-                B[i, j] =  parte1(i, G, n, a) * parte2(i, j, m, a) * parte3(1, i, j, a)
-            else:
-                B[i, j] = -A[i, j]
-
-    # Convertendo a matriz B para unidades de arcsec / yr
-    B = B * (180/np.pi) * 365.25 * 3600
-
-    # Convertendo a matriz B para unidades de deg / yr
-    #B = B * (180/np.pi) * 365.25
-
-    # Obtendo a matriz simétrica B
-    B_cal = np.zeros((len_a,len_a))
-    for i in range(0,len_a):
-        for j in range(0,len_a):
-            if i == j:
-                B_cal[i, j] = -A[i,j]
-            else:
-                B_cal[i, j] =\
-                ((a[i]*np.sqrt(m[i]*n[i]))/(a[j]*np.sqrt(m[j]*n[j])))*B[i,j]
-
-    # Obtendo os autovetores e autovalres de B
-    B_eigen = np.linalg.eig(B)
-    B_eigen_sim = np.linalg.eig(B_cal)
-
     # %% Resultados da matriz B
     # A matriz simétrica, na página 26 do texto de Carpino.
 
     titulo('Resultado da matriz B em arcsec/yr')
-
+    
     print('Matriz B')
     print(B)
     print('\n Autovalores de B')
