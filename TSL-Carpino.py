@@ -230,6 +230,7 @@ if __name__ == '__main__':
             else:
                 B[i, i] = -A[i, i]
 
+
     # Obtendo a matriz simétrica A
     A_cal = np.zeros((len_a,len_a))
     for i in range(0,len_a):
@@ -260,13 +261,25 @@ if __name__ == '__main__':
     # Convertendo a matriz B simétrica para unidades de arcsec / yr
     B_cal = B_cal * (180/np.pi) * 365.25 * 3600       
                 
-    # Obtendo os autovetores e autovalres de A
-    A_eigen = np.linalg.eig(A)
-    A_eigen_sim = np.linalg.eig(A_cal)
-
-    # Obtendo os autovetores e autovalres de B
-    B_eigen = np.linalg.eig(B)
-    B_eigen_sim = np.linalg.eig(B_cal)
+    # Obtendo os autovetores e autovalres de A    
+    A_eigenValues, A_eigenVectors = np.linalg.eig(A)
+    idx = A_eigenValues.argsort()[::-1]   
+    A_eigenValues = A_eigenValues[idx]
+    A_eigenVectors = A_eigenVectors[:,idx]
+    A_sim_eigenValues, A_sim_eigenVectors = np.linalg.eig(A_cal)
+    idx = A_sim_eigenValues.argsort()[::-1]   
+    A_sim_eigenValues = A_sim_eigenValues[idx]
+    A_sim_eigenVectors = A_sim_eigenVectors[:,idx]
+    
+    # Obtendo os autovetores e autovalres de B    
+    B_eigenValues, B_eigenVectors = np.linalg.eig(B)
+    idx = B_eigenValues.argsort()[::-1]   
+    B_eigenValues = B_eigenValues[idx]
+    B_eigenVectors = B_eigenVectors[:,idx]
+    B_sim_eigenValues, B_sim_eigenVectors = np.linalg.eig(B_cal)
+    idx = B_sim_eigenValues.argsort()[::-1]   
+    B_sim_eigenValues = B_sim_eigenValues[idx]
+    B_sim_eigenVectors = B_sim_eigenVectors[:,idx]
     
     # %% Resultados da matriz A
     # A matriz simétrica, na página 26 do texto de Carpino.
@@ -276,15 +289,15 @@ if __name__ == '__main__':
     print('Matriz A')
     print(A)
     print('\n Autovalores de A')
-    print(A_eigen[0])
+    print(A_eigenValues)
     print('\n Autovetores de A')
-    print(A_eigen[1])
+    print(A_eigenVectors)
     print('\n Matriz A simétrica, conforme Carpino, página 26')
     print(A_cal)
     print('\n Autovalores de A simetrica')
-    print(A_eigen_sim[0])
+    print(A_sim_eigenValues)
     print('\n Autovetores de A simetrica')
-    print(A_eigen_sim[1])
+    print(A_sim_eigenVectors)
 
     # %% Resultados da matriz B
     # A matriz simétrica, na página 26 do texto de Carpino.
@@ -294,35 +307,15 @@ if __name__ == '__main__':
     print('Matriz B')
     print(B)
     print('\n Autovalores de B')
-    print(B_eigen[0])
+    print(B_eigenValues)
     print('\n Autovetores de B')
-    print(B_eigen[1])
+    print(B_eigenVectors)
     print('\n Matriz B simétrica, conforme Carpino, página 27')
     print(B_cal)
     print('\n Autovalores de B simetrica')
-    print(B_eigen_sim[0])
+    print(B_sim_eigenValues)
     print('\n Autovetores de B simetrica')
-    print(B_eigen_sim[1])
-
-    # %% Autovetores rescalonados
-
-    G_cal = A_eigen[1]
-    G = np.zeros((len_a, len_a))
-    
-    S_cal = B_eigen[1]
-    S = np.zeros((len_a, len_a))
-
-    for i in range(0, len_a):
-        for j in range(0, len_a):
-            G[i, j] = G_cal[i,j] / (a[i] * np.sqrt(m[i] * n[i]))
-            S[i, j] = S_cal[i,j] / (a[i] * np.sqrt(m[i] * n[i]))
-
-    titulo('Matriz G')
-    #print(G)
-    
-    titulo('Matriz S')
-    #print(S)
-
+    print(B_sim_eigenVectors)
     
     # %% Criando novas colunas com as variáveis regularizadas
     pl['h'] = e * np.sin(np.radians(varpi))
@@ -332,7 +325,3 @@ if __name__ == '__main__':
 
     titulo('Variáveis regulares')
     print(pl[['Planeta', 'h', 'k', 'p', 'q']])
-
-## %% Execução da função main
-#if __name__ == '__main__':
-#    main()
