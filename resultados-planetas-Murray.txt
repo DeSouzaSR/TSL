@@ -1,0 +1,10 @@
+Resultado da matriz A em arcsec/yr
+
+Matriz A associada a Excentricidade
+[[  7.33791949  -4.78969886]
+ [-11.80965379  18.09263825]]
+Autovalores de A
+[ 21.96085506   3.46970267]
+Autovetores de A
+[[ 0.31127449 -0.77797183]
+ [-0.95032005 -0.62829915]]
