@@ -97,7 +97,7 @@ if __name__ == '__main__':
     G = (0.01720209895)**2 # para o SS AU^3 d^-2 M_sol^-1
 
     # Massa do Sol
-    M = 1.00000598 # Massa 'unitária' para o Sol, segundo Carpino
+    M = 1.0 # Massa 'unitária' para o Sol
 
     # %% Dados dos planetas
 
@@ -124,12 +124,12 @@ if __name__ == '__main__':
     m = pl['m'] # Considerando massa unitária para o Sol
 
     # Dados dos movimentos médios n calculado
-    n = (G * (M + m)/a**3)**(1/2) # unidade rad/day
-    pl['n'] = n
+    #n = (G * (M + m)/a**3)**(1/2) # unidade rad/day
+    #pl['n'] = n
 
     # Dados dos movimentos médios lidos
-    #n = pl['n'] # deg/day
-    #n = (n * np.pi / 180) # unidade rad/day
+    n = pl['n'] # deg/day
+    n = (n * np.pi / 180) / 365.25 # unidade rad/day
 
     # Excentricidade
     e = pl['e']
@@ -257,15 +257,15 @@ if __name__ == '__main__':
                 B_cal[i, j] =\
                 ((a[i]*np.sqrt(m[i]*n[i]))/(a[j]*np.sqrt(m[j]*n[j])))*B[i,j]
 
-    # Convertendo a matriz A para unidades de arcsec / yr
-    A = A * (180/np.pi) * 365.25 * 3600
-    # Convertendo a matriz A simétrica para unidades de arcsec / yr
-    A_cal = A_cal * (180/np.pi) * 365.25 * 3600   
+    # Convertendo a matriz A para unidades de deg / yr
+    A = A * (180/np.pi) * 365.25
+    # Convertendo a matriz A simétrica para unidades de deg / yr
+    A_cal = A_cal * (180/np.pi) * 365.25
 
-    # Convertendo a matriz B para unidades de arcsec / yr
-    B = B * (180/np.pi) * 365.25 * 3600
-    # Convertendo a matriz B simétrica para unidades de arcsec / yr
-    B_cal = B_cal * (180/np.pi) * 365.25 * 3600       
+    # Convertendo a matriz B para unidades de deg / yr
+    B = B * (180/np.pi) * 365.25
+    # Convertendo a matriz B simétrica para unidades de deg / yr
+    B_cal = B_cal * (180/np.pi) * 365.25      
                 
     # Obtendo os autovetores e autovalres de A    
     A_eigenValues, A_eigenVectors = np.linalg.eig(A)
@@ -295,14 +295,22 @@ if __name__ == '__main__':
 
     f = open(output_file, 'w+')
 
-    titulo('Resultado da matriz A em arcsec/yr')
-    f.write('Resultado da matriz A em arcsec/yr\n')
-
+    titulo('Resultado da matriz A em deg/yr')
+    
+    f.write('Resultado da matriz A em deg/yr\n')
     f.write('\nMatriz A associada a Excentricidade\n')
     f.write(str(A))
     f.write('\nAutovalores de A\n')
     f.write(str(A_eigenValues))
     f.write('\nAutovetores de A\n')
+    f.write(str(A_eigenVectors))
+    
+    f.write('Resultado da matriz B em deg/yr\n')
+    f.write('\nMatriz B associada a Excentricidade\n')
+    f.write(str(B))
+    f.write('\nAutovalores de B\n')
+    f.write(str(A_eigenValues))
+    f.write('\nAutovetores de B\n')
     f.write(str(A_eigenVectors))
 
     f.close()
