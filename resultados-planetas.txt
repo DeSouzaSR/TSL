@@ -1,15 +1,13 @@
-Resultado da matriz A em deg/yr
 
-Matriz A associada a Excentricidade
+Matriz A associada a Excentricidade em deg/yr
 [[ 0.00203925 -0.00133109]
  [-0.00328087  0.00502636]]
 Autovalores de A
 [ 0.00610143  0.00096418]
 Autovetores de A
 [[ 0.31138699 -0.77795242]
- [-0.95028319 -0.6283232 ]]Resultado da matriz B em deg/yr
-
-Matriz B associada a Excentricidade
+ [-0.95028319 -0.6283232 ]]
+Matriz B associada a Inclinação em deg/yr
 [[-0.00203925  0.00203925]
  [ 0.00502636 -0.00502636]]
 Autovalores de B
