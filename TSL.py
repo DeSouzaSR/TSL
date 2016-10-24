@@ -72,21 +72,22 @@ def parte3(K, i, j, a):
 # %% Função main - programa principal
 if __name__ == '__main__':
 
-    # %% Constantes
+    # Leitura dos dados
+    input_file = sys.argv[1]
+    
+    # Lendo nome dos planetas
+    planetas = np.genfromtxt(input_file, dtype='str', usecols=0,\
+        skip_header=1)
+    
+    # Lendo dados numéricos
+    pl = np.genfromtxt(input_file, dtype='float',\
+        usecols=(1, 2, 3, 4, 5), skip_header=10)
+    
     # Constante da gravitação universal
     G = (0.01720209895)**2 # para o SS AU^3 d^-2 M_sol^-1
 
     # Massa do Sol
     M = 1.0 # Massa 'unitária' para o Sol
-    
-    # Leitura dos dados
-    input_file = sys.argv[1]
-    
-    # Lendo nome dos planetas
-    planetas = np.genfromtxt(input_file, dtype='str', usecols=0, skip_header=1)
-    
-    # Lendo dados numéricos
-    pl = np.genfromtxt(input_file, dtype='float', usecols=(1, 2, 3, 4, 5), skip_header=1)
     
     # Semieixo maior
     a = pl[:,1] # unidade AU
@@ -202,9 +203,9 @@ if __name__ == '__main__':
     f.write('\nMatriz B associada a Inclinação em deg/yr\n')
     f.write(str(B))
     f.write('\nAutovalores de B\n')
-    f.write(str(A_eigenValues))
+    f.write(str(B_eigenValues))
     f.write('\nAutovetores de B\n')
-    f.write(str(A_eigenVectors))
+    f.write(str(B_eigenVectors))
 
     f.close()
     

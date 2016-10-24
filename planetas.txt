@@ -1,3 +1,12 @@
+# Dados dos planetas para o programa TSL
+# (Não alterar o número de linhas do arquivo)
+#
+#   m: massa [em unidades de massa solar]
+#   a: semieixo maior [AU]
+#   e: excentricidade
+# inc: inclinação [deg]
+#   n: movimento médio [deg/yr]
+
 Planeta  m          a        e         inc     n
 Jupiter  9.54786e-4 5.202545 0.0474622 1.30667 30.3374
 Saturno  2.85837e-4 9.554841 0.0575481 2.48795 12.1890
