@@ -72,23 +72,25 @@ def parte3(K, i, j, a):
 # %% Função main - programa principal
 if __name__ == '__main__':
 
-    # Leitura dos dados
-    input_file = sys.argv[1]
-    
-    # Lendo nome dos planetas
-    planetas = np.genfromtxt(input_file, dtype='str', usecols=0,\
-        skip_header=1)
-    
-    # Lendo dados numéricos
-    pl = np.genfromtxt(input_file, dtype='float',\
-        usecols=(1, 2, 3, 4, 5), skip_header=10)
-    
+
+    # %% Constantes
     # Constante da gravitação universal
     G = (0.01720209895)**2 # para o SS AU^3 d^-2 M_sol^-1
 
     # Massa do Sol
     M = 1.0 # Massa 'unitária' para o Sol
+
+    # Leitura dos dados
+    input_file = sys.argv[1]
+
+    # Lendo nome dos planetas
+    planetas = np.genfromtxt(input_file, dtype='str', usecols=0,\
+        skip_header=10)
     
+    # Lendo dados numéricos
+    pl = np.genfromtxt(input_file, dtype='float',\
+        usecols=(1, 2, 3, 4, 5), skip_header=10)
+
     # Semieixo maior
     a = pl[:,1] # unidade AU
 
@@ -166,62 +168,63 @@ if __name__ == '__main__':
     # Convertendo a matriz B para unidades de deg / yr
     B = B * (180/np.pi) * 365.25
     # Convertendo a matriz B simétrica para unidades de deg / yr
-    B_cal = B_cal * (180/np.pi) * 365.25      
-                
-    # Obtendo os autovetores e autovalres de A    
+    B_cal = B_cal * (180/np.pi) * 365.25
+
+    # Obtendo os autovetores e autovalres de A
     A_eigenValues, A_eigenVectors = np.linalg.eig(A)
-    idx = A_eigenValues.argsort()[::-1]   
+    idx = A_eigenValues.argsort()[::-1]
     A_eigenValues = A_eigenValues[idx]
     A_eigenVectors = A_eigenVectors[:,idx]
     A_sim_eigenValues, A_sim_eigenVectors = np.linalg.eig(A_cal)
-    idx = A_sim_eigenValues.argsort()[::-1]   
+    idx = A_sim_eigenValues.argsort()[::-1]
     A_sim_eigenValues = A_sim_eigenValues[idx]
     A_sim_eigenVectors = A_sim_eigenVectors[:,idx]
-    
-    # Obtendo os autovetores e autovalres de B    
+
+    # Obtendo os autovetores e autovalres de B
     B_eigenValues, B_eigenVectors = np.linalg.eig(B)
-    idx = B_eigenValues.argsort()[::-1]   
+    idx = B_eigenValues.argsort()[::-1]
     B_eigenValues = B_eigenValues[idx]
     B_eigenVectors = B_eigenVectors[:,idx]
     B_sim_eigenValues, B_sim_eigenVectors = np.linalg.eig(B_cal)
-    idx = B_sim_eigenValues.argsort()[::-1]   
+    idx = B_sim_eigenValues.argsort()[::-1]
     B_sim_eigenValues = B_sim_eigenValues[idx]
     B_sim_eigenVectors = B_sim_eigenVectors[:,idx]
-    
+
     # Salvando no arquivo
     output_file = 'resultados-' + str(input_file)
 
     f = open(output_file, 'w+')
-    
-    f.write('\nMatriz A associada a Excentricidade em deg/yr\n')
-    f.write(str(A))
+
+    f.write('Matriz A associada a Excentricidade em [deg/yr]\n')
+    f.write(str(A) + '\n')
     f.write('\nAutovalores de A\n')
-    f.write(str(A_eigenValues))
+    f.write(str(A_eigenValues) + '\n')
     f.write('\nAutovetores de A\n')
-    f.write(str(A_eigenVectors))
-    
-    f.write('\nMatriz B associada a Inclinação em deg/yr\n')
-    f.write(str(B))
+    f.write(str(A_eigenVectors) + '\n')
+
+    f.write('\nMatriz B associada a Inclinação em [deg/yr]\n')
+    f.write(str(B) + '\n')
     f.write('\nAutovalores de B\n')
-    f.write(str(B_eigenValues))
+    f.write(str(B_eigenValues) + '\n')
     f.write('\nAutovetores de B\n')
-    f.write(str(B_eigenVectors))
+    f.write(str(B_eigenVectors) + '\n')
+
 
     f.close()
-    
+
     # Informação ao usuário
     os.system('clear')
     print("TSL - Teoria Secular Linear")
     print("---------------------------")
-    
+
     try:
-         os.path.isfile(output_file)
-         print()
-         print('O resultado foi gravado no arquivo', output_file)
-         print()
+        os.path.isfile(output_file)
+        print()
+        print('O resultado foi gravado no arquivo', output_file)
+        print()
     except:
         print('O arquivo não foi criado')
-        
-    
-   
+
+
+
 
